@@ -10,7 +10,7 @@ namespace Features.Player {
         }
 
         public override void EnterState() {
-            ctx.OnStartMoving?.Invoke();
+            //ctx.OnStartMoving?.Invoke();
             //if (ctx.IsOwner) {
             //    Vector2 input = ctx.Controller.MoveAction.ReadValue<Vector2>();
             //    ctx.InputDirection.Value = input;

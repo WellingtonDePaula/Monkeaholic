@@ -3,18 +3,17 @@ using Core.StateMachine;
 using Unity.Netcode;
 using System;
 using UnityEngine.Events;
+using Core.ScriptableObjects;
 
 namespace Features.Player {
     public class PlayerStateMachine : NetworkStateManager<PlayerStateMachine.PlayerState> {
         public PlayerMovement Movement { get; private set; }
         public PlayerController Controller { get; private set; }
         public Rigidbody2D Body { get; private set; }
-        public NetworkVariable<Vector2> InputDirection;
-        public UnityEvent OnStartMoving;
+        public MonkeyClassData Stats;
 
-        // Temporário speed, será substituído pelo sistema de stats
-        [SerializeField] public float MoveSpeed = 5f;
-        [SerializeField] public float JumpSpeed = 5f;
+        public NetworkVariable<Vector2> InputDirection;
+        //public UnityEvent OnStartMoving;
 
         public enum PlayerState {
             Idle,
@@ -23,16 +22,18 @@ namespace Features.Player {
             //Falling,
         }
 
-        private void Awake() {
+        public override void OnNetworkSpawn() {
             Movement = new PlayerMovement(this);
             Controller = new PlayerController();
             Body = gameObject.GetComponent<Rigidbody2D>();
-            InputDirection = new NetworkVariable<Vector2>(Vector2.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
             States.Add(PlayerState.Idle, new PlayerStateIdle(this));
             States.Add(PlayerState.Moving, new PlayerStateMoving(this));
 
             CurrentState = States[PlayerState.Idle];
+        }
+
+        private void Awake() {
+            InputDirection = new NetworkVariable<Vector2>(Vector2.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         }
 
         protected override void Update() {

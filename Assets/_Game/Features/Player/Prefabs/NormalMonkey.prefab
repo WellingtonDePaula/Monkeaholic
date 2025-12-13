@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 1384293074101513237}
   - component: {fileID: -5184361908117155908}
   - component: {fileID: 512927062302296642}
-  - component: {fileID: 745671207822554237}
+  - component: {fileID: 2005667161397350635}
   m_Layer: 0
-  m_Name: Player
+  m_Name: NormalMonkey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 1395118654173355455, guid: 4fad734ef4463d54098aaec1c12b00ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Features.Player.PlayerStateMachine
   ShowTopMostFoldoutHeaderGroup: 1
-  MoveSpeed: 5
-  JumpSpeed: 5
+  Stats: {fileID: 11400000, guid: 65347c115b0100e4bbdd577d39fdd52e, type: 2}
+  InputDirection:
+    m_InternalValue: {x: 0, y: 0}
 --- !u!114 &1384293074101513237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +227,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &745671207822554237
+--- !u!61 &2005667161397350635
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,15 +261,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.060736716, y: -0.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 0.8125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.62980676, y: 0.76027286}
   m_EdgeRadius: 0
