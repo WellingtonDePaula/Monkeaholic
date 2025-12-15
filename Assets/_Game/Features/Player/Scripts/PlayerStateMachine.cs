@@ -10,10 +10,8 @@ namespace Features.Player {
         public PlayerMovement Movement { get; private set; }
         public PlayerController Controller { get; private set; }
         public Rigidbody2D Body { get; private set; }
-        public MonkeyClassData Stats;
-
-        public NetworkVariable<Vector2> InputDirection;
-        //public UnityEvent OnStartMoving;
+        public MonkeyClassData Data;
+        [HideInInspector] public NetworkVariable<Vector2> InputDirection;
 
         public enum PlayerState {
             Idle,

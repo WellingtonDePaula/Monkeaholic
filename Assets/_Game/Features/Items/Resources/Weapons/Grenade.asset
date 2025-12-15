@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52487cc71bcf31548bf60784a0a595ef, type: 3}
+  m_Name: Grenade
+  m_EditorClassIdentifier: Assembly-CSharp::Features.Items.WeaponData
+  id: wpn_grenade
+  displayName: Grenade
+  icon: {fileID: -1791783992758969951, guid: 861f101a421275645954261604359bf5, type: 3}
+  description: A simple grenade, what can i say about it?
+  damage: 10
+  explosionRadius: 3
+  projectilePrefab: {fileID: 6571194370350541345, guid: 8b46804284c475f4a8444ae39a43c8fe, type: 3}
+  isMelee: 0

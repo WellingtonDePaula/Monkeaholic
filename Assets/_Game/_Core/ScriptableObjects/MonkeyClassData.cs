@@ -19,7 +19,6 @@ namespace Core.ScriptableObjects {
         [Header("Equipamento Inicial")]
         public GameObject startingWeaponPrefab;
 
-
         public enum MonkeyClass {
             Normal,
             Soldier,
