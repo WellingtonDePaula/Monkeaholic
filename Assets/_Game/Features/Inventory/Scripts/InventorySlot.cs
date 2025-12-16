@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Features.Inventory {
-    class InventorySlot {
+    public class InventorySlot {
         public int SlotIndex { get; private set; }
         public ItemData Item { get; private set; }
         public int Quantity { get; private set; }
