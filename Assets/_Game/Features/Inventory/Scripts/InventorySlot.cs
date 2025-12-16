@@ -13,5 +13,10 @@ namespace Features.Inventory {
             Item = item;
             Quantity = quantity;
         }
+        public void AddQuantity(int amount) {
+            Quantity += amount;
+            if (Quantity < 0)
+                Quantity = 0;
+        }
     }
 }

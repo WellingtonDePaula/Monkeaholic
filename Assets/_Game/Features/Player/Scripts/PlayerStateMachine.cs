@@ -32,6 +32,12 @@ namespace Features.Player {
             States.Add(PlayerState.Moving, new PlayerStateMoving(this));
 
             CurrentState = States[PlayerState.Idle];
+
+            if (IsOwner) {
+                if (InventoryUI.Instance != null) {
+                    InventoryUI.Instance.InitializeInventoryUI(Inventory);
+                }
+            }
         }
 
         private void Awake() {

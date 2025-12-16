@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3e58f1e70ecd84aaae2890472c9736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
+  slotPrefab: {fileID: 8735675850634907852, guid: ae094691b0cc79543a338ce22c90d17d, type: 3}
+  containerGrid: {fileID: 1832554005637467104}
 --- !u!1 &4431111254030496797
 GameObject:
   m_ObjectHideFlags: 0
