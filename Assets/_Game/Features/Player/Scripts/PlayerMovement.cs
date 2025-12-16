@@ -7,9 +7,7 @@ namespace Features.Player {
             ctx = context;
         }
         public void Move(float xInput) {
-            // Cliente andando mais rápido que o servidor
-            //ctx.Body.linearVelocityX = xInput * ctx.Stats.BaseMoveSpeed;
-            ctx.Body.linearVelocityX = Mathf.Lerp(ctx.Body.linearVelocityX, xInput * ctx.Data.MoveSpeed, Time.deltaTime * 10f);
+            ctx.Body.AddForceX(xInput * ctx.Data.MoveSpeed, ForceMode2D.Force);
         }
         public void Jump() {
             //ctx.Body.AddForceY(ctx.Controller.JumpAction.ReadValue<Vector2>().y * ctx.JumpSpeed);
