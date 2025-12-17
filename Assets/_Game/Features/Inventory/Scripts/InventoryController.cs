@@ -10,6 +10,8 @@ namespace Features.Inventory {
         public List<InventorySlot> slots { get; private set; }
 
         public event Action OnInventoryChanged;
+        public InventorySlot SelectedSlot { get; private set; }
+        public event Action<InventorySlot> OnItemSelected;
 
         public InventoryController() {
             Initialize();
@@ -34,6 +36,13 @@ namespace Features.Inventory {
                 slot.AddQuantity(amount);
 
                 OnInventoryChanged?.Invoke();
+            }
+        }
+
+        public void SelectItem(int index) {
+            if(index >= 0 && index < slots.Count) {
+                SelectedSlot = slots[index];
+                OnItemSelected?.Invoke(SelectedSlot);
             }
         }
     }

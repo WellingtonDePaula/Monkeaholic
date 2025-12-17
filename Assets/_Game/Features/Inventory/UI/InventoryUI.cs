@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Features.Player;
 using Unity.Netcode;
 using Managers;
+using UnityEngine.UI;
 
 namespace Features.Inventory {
     public class InventoryUI : MonoBehaviour {
@@ -47,8 +48,14 @@ namespace Features.Inventory {
             foreach (InventorySlot dataSlot in cachedInventory.slots) {
                 InventorySlotUI newUI = Instantiate(slotPrefab, containerGrid);
                 newUI.UpdateView(dataSlot);
+
+                // Adiconando listener de seleção de item
+                newUI.SetupClickAction(() => cachedInventory.SelectItem(dataSlot.SlotIndex));
+
                 spawnedSlots[dataSlot.SlotIndex] = newUI;
             }
+
+            cachedInventory.OnItemSelected += HighlightSelectedSlot;
         }
 
         private void ClearSlotsUI() {
@@ -58,6 +65,13 @@ namespace Features.Inventory {
             spawnedSlots.Clear();
             for (int i = 0; i < ItemsAssetManager.Instance.ItemsList.items.Count; i++) {
                 spawnedSlots.Add(null);
+            }
+        }
+
+        private void HighlightSelectedSlot(InventorySlot selected) {
+            for (int i = 0; i < cachedInventory.slots.Count; i++) {
+                // Se o index do dado for igual ao selecionado, ativa o visual
+                spawnedSlots[i].SetSelected(cachedInventory.slots[i] == selected);
             }
         }
 
