@@ -40,8 +40,8 @@ namespace Features.Inventory {
         }
 
         public void SelectItem(int index) {
-            if(index >= 0 && index < slots.Count) {
-                SelectedSlot = slots[index];
+            if (index >= 0 && index < slots.Count) {
+                SelectedSlot = SelectedSlot == slots[index] ? null : slots[index];
                 OnItemSelected?.Invoke(SelectedSlot);
             }
         }

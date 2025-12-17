@@ -50,7 +50,7 @@ namespace Features.Inventory {
                 newUI.UpdateView(dataSlot);
 
                 // Adiconando listener de seleção de item
-                newUI.SetupClickAction(() => cachedInventory.SelectItem(dataSlot.SlotIndex));
+                newUI.AddClickAction(() => cachedInventory.SelectItem(dataSlot.SlotIndex));
 
                 spawnedSlots[dataSlot.SlotIndex] = newUI;
             }
