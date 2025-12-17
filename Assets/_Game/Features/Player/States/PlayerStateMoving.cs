@@ -22,12 +22,15 @@ namespace Features.Player {
         }
 
         public override PlayerStateMachine.PlayerState GetNextState() {
-            // Se houver input, mudar para o estado de movimento
             if (ctx.InputDirection.Value == Vector2.zero) {
                 return PlayerStateMachine.PlayerState.Idle;
             }
+            if (ctx.IsOwner) {
+                if (ctx.Controller.InventoryAction.triggered) {
+                    return PlayerStateMachine.PlayerState.OnInventory;
+                }
+            }
 
-            // Caso final, continuar no estado atual
             return PlayerStateMachine.PlayerState.Moving;
         }
 
@@ -35,6 +38,10 @@ namespace Features.Player {
             if (ctx.IsOwner) {
                 Vector2 input = ctx.Controller.MoveAction.ReadValue<Vector2>();
                 ctx.InputDirection.Value = input;
+            }
+            
+            if(ctx.IsHost) {
+                ctx.Movement.Move(ctx.InputDirection.Value.x);
             }
         }
     }

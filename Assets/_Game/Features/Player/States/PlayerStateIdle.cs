@@ -16,18 +16,22 @@ namespace Features.Player {
         }
 
         public override PlayerStateMachine.PlayerState GetNextState() {
-            ctx.InputDirection.Value = ctx.Controller.MoveAction.ReadValue<Vector2>();
-            // Se houver input, mudar para o estado de movimento
             if (ctx.InputDirection.Value != Vector2.zero) {
                 return PlayerStateMachine.PlayerState.Moving;
             }
 
-            // Caso final, continuar no estado atual
+            if (ctx.IsOwner) {
+                if (ctx.Controller.InventoryAction.triggered) {
+                    return PlayerStateMachine.PlayerState.OnInventory;
+                }
+            }
             return PlayerStateMachine.PlayerState.Idle;
         }
 
         public override void UpdateState() {
-
+            if (ctx.IsOwner) {
+                ctx.InputDirection.Value = ctx.Controller.MoveAction.ReadValue<Vector2>();
+            }
         }
     }
 }

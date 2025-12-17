@@ -1,10 +1,11 @@
-using UnityEngine;
-using Core.StateMachine;
-using Unity.Netcode;
-using System;
-using UnityEngine.Events;
 using Core.ScriptableObjects;
+using Core.StateMachine;
 using Features.Inventory;
+using System;
+using Unity.Netcode;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Features.Player {
     public class PlayerStateMachine : NetworkStateManager<PlayerStateMachine.PlayerState> {
@@ -18,6 +19,7 @@ namespace Features.Player {
         public enum PlayerState {
             Idle,
             Moving,
+            OnInventory,
             //Jumping,
             //Falling,
         }
@@ -30,6 +32,7 @@ namespace Features.Player {
             Body = gameObject.GetComponent<Rigidbody2D>();
             States.Add(PlayerState.Idle, new PlayerStateIdle(this));
             States.Add(PlayerState.Moving, new PlayerStateMoving(this));
+            States.Add(PlayerState.OnInventory, new PlayerStateOnInventory(this));
 
             CurrentState = States[PlayerState.Idle];
 
@@ -37,6 +40,7 @@ namespace Features.Player {
                 if (InventoryUI.Instance != null) {
                     InventoryUI.Instance.InitializeInventoryUI(Inventory);
                 }
+
             }
         }
 
@@ -46,10 +50,6 @@ namespace Features.Player {
 
         protected override void Update() {
             base.Update();
-
-            if (IsHost) {
-                Movement.Move(InputDirection.Value.x);
-            }
         }
     }
 }

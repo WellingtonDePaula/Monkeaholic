@@ -7,7 +7,7 @@ using System;
 namespace Features.Inventory {
     public class InventoryController {
 
-        public List<InventorySlot> items { get; private set; }
+        public List<InventorySlot> slots { get; private set; }
 
         public event Action OnInventoryChanged;
 
@@ -16,7 +16,7 @@ namespace Features.Inventory {
         }
 
         public void Initialize() {
-            items = new List<InventorySlot>();
+            slots = new List<InventorySlot>();
 
             if (ItemsAssetManager.Instance == null)
                 return;
@@ -24,12 +24,12 @@ namespace Features.Inventory {
             List<ItemData> itemsData = ItemsAssetManager.Instance.ItemsList.items;
             for (int i = 0; i < itemsData.Count; i++) {
 
-                items.Add(new InventorySlot(i, itemsData[i], 0));
+                slots.Add(new InventorySlot(i, itemsData[i], 0));
             }
         }
 
         public void AddItemQuantity(string itemId, int amount) {
-            var slot = items.Find(slot => slot.Item.id == itemId);
+            var slot = slots.Find(slot => slot.Item.id == itemId);
             if (slot != null) {
                 slot.AddQuantity(amount);
 

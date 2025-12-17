@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Features.Player;
 using Unity.Netcode;
+using Managers;
 
 namespace Features.Inventory {
     public class InventoryUI : MonoBehaviour {
@@ -12,6 +13,8 @@ namespace Features.Inventory {
         [SerializeField] private InventorySlotUI slotPrefab;
         [SerializeField] private Transform containerGrid;
 
+        [SerializeField] private GameObject contentPanel;
+
         private InventoryController cachedInventory;
         private List<InventorySlotUI> spawnedSlots = new List<InventorySlotUI>();
 
@@ -20,6 +23,9 @@ namespace Features.Inventory {
                 Destroy(gameObject);
             } else {
                 Instance = this;
+            }
+            if(contentPanel != null) {
+                contentPanel.SetActive(false);
             }
         }
 
@@ -36,15 +42,29 @@ namespace Features.Inventory {
         }
 
         private void RedrawUI() {
+            ClearSlotsUI();
+
+            foreach (InventorySlot dataSlot in cachedInventory.slots) {
+                InventorySlotUI newUI = Instantiate(slotPrefab, containerGrid);
+                newUI.UpdateView(dataSlot);
+                spawnedSlots[dataSlot.SlotIndex] = newUI;
+            }
+        }
+
+        private void ClearSlotsUI() {
             foreach (Transform child in containerGrid) {
                 Destroy(child.gameObject);
             }
             spawnedSlots.Clear();
+            for (int i = 0; i < ItemsAssetManager.Instance.ItemsList.items.Count; i++) {
+                spawnedSlots.Add(null);
+            }
+        }
 
-            foreach (var dataSlot in cachedInventory.items) {
-                InventorySlotUI newUI = Instantiate(slotPrefab, containerGrid);
-                newUI.UpdateView(dataSlot);
-                spawnedSlots.Add(newUI);
+        public void ToggleVisibility() {
+            if (contentPanel != null) {
+                bool isActive = contentPanel.activeSelf;
+                contentPanel.SetActive(!isActive);
             }
         }
 
