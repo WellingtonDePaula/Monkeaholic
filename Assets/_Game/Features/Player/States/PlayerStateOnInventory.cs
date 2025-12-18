@@ -21,7 +21,7 @@ namespace Features.Player {
 
         public override PlayerStateMachine.PlayerState GetNextState() {
             if(ctx.Controller.InventoryAction.triggered) {
-                return PlayerStateMachine.PlayerState.Idle;
+                return (ctx.Inventory.SelectedSlot != null) ? PlayerStateMachine.PlayerState.IdleHoldingItem : PlayerStateMachine.PlayerState.Idle;
             }
             return PlayerStateMachine.PlayerState.OnInventory;
         }
@@ -34,6 +34,9 @@ namespace Features.Player {
 
         public override void UpdateState() {
 
+        }
+
+        public override void FixedUpdateState() {
         }
     }
 }

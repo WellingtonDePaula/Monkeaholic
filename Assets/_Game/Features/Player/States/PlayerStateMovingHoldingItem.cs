@@ -2,10 +2,10 @@
 using Core.StateMachine;
 
 namespace Features.Player {
-    public class PlayerStateMoving : BaseState<PlayerStateMachine.PlayerState> {
+    public class PlayerStateMovingHoldingItem : BaseState<PlayerStateMachine.PlayerState> {
         private PlayerStateMachine ctx;
 
-        public PlayerStateMoving(PlayerStateMachine context) : base(PlayerStateMachine.PlayerState.Moving) {
+        public PlayerStateMovingHoldingItem(PlayerStateMachine context) : base(PlayerStateMachine.PlayerState.MovingHoldingItem) {
             ctx = context;
         }
 
@@ -29,7 +29,7 @@ namespace Features.Player {
 
         public override PlayerStateMachine.PlayerState GetNextState() {
             if (ctx.InputDirection.Value == Vector2.zero) {
-                return PlayerStateMachine.PlayerState.Idle;
+                return PlayerStateMachine.PlayerState.IdleHoldingItem;
             }
             if (ctx.IsOwner) {
                 if (ctx.Controller.InventoryAction.triggered) {
@@ -37,7 +37,7 @@ namespace Features.Player {
                 }
             }
 
-            return PlayerStateMachine.PlayerState.Moving;
+            return PlayerStateMachine.PlayerState.MovingHoldingItem;
         }
 
         public override void UpdateState() {

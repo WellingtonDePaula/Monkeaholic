@@ -23,6 +23,10 @@ namespace Core.StateMachine {
             }
         }
 
+        private void FixedUpdate() {
+            CurrentState.FixedUpdateState();
+        }
+
         private void TransitionToState(Estate stateKey) {
             IsTransitioningState = true;
             CurrentState.ExitState();

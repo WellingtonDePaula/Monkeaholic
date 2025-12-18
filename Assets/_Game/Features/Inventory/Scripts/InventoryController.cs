@@ -1,8 +1,8 @@
-using Features.Items;
 using Managers;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Features.Items.Data;
 
 namespace Features.Inventory {
     public class InventoryController {
@@ -43,6 +43,14 @@ namespace Features.Inventory {
             if (index >= 0 && index < slots.Count) {
                 SelectedSlot = SelectedSlot == slots[index] ? null : slots[index];
                 OnItemSelected?.Invoke(SelectedSlot);
+            }
+        }
+
+        public void UseSelectedItem() {
+            if (SelectedSlot != null) {
+                SelectedSlot = null;
+                SelectedSlot.RemoveQuantity(1);
+                OnInventoryChanged?.Invoke();
             }
         }
     }

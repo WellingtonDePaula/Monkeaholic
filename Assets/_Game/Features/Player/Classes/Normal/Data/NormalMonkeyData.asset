@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.ScriptableObjects.MonkeyClassData
   Class: 0
   MaxHealth: 50
-  MoveSpeed: 5
+  MoveSpeed: 1000
   JumpForce: 10
   knockbackResistance: 0.5
   startingWeaponPrefab: {fileID: 0}

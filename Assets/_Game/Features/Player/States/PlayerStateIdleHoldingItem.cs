@@ -1,11 +1,12 @@
 using UnityEngine;
 using Core.StateMachine;
+using JetBrains.Annotations;
 
 namespace Features.Player {
-    public class PlayerStateIdle : BaseState<PlayerStateMachine.PlayerState> {
+    public class PlayerStateIdleHoldingItem : BaseState<PlayerStateMachine.PlayerState> {
         private PlayerStateMachine ctx;
 
-        public PlayerStateIdle(PlayerStateMachine context) : base(PlayerStateMachine.PlayerState.Idle) {
+        public PlayerStateIdleHoldingItem(PlayerStateMachine context) : base(PlayerStateMachine.PlayerState.IdleHoldingItem) {
             ctx = context;
         }
 
@@ -20,15 +21,18 @@ namespace Features.Player {
 
         public override PlayerStateMachine.PlayerState GetNextState() {
             if (ctx.InputDirection.Value != Vector2.zero) {
-                return PlayerStateMachine.PlayerState.Moving;
+                return PlayerStateMachine.PlayerState.MovingHoldingItem;
             }
 
             if (ctx.IsOwner) {
                 if (ctx.Controller.InventoryAction.triggered) {
                     return PlayerStateMachine.PlayerState.OnInventory;
                 }
+                if(ctx.Controller.UseItemAction.triggered) {
+                    return PlayerStateMachine.PlayerState.UseItem;
+                }
             }
-            return PlayerStateMachine.PlayerState.Idle;
+            return PlayerStateMachine.PlayerState.IdleHoldingItem;
         }
 
         public override void UpdateState() {

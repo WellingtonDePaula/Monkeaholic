@@ -1,4 +1,4 @@
-﻿using Features.Items;
+﻿using Features.Items.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +15,12 @@ namespace Features.Inventory {
         }
         public void AddQuantity(int amount) {
             Quantity += amount;
+            if (Quantity < 0)
+                Quantity = 0;
+        }
+
+        public void RemoveQuantity(int amount) {
+            Quantity -= amount;
             if (Quantity < 0)
                 Quantity = 0;
         }

@@ -12,6 +12,7 @@ namespace Core.StateMachine {
         public abstract void EnterState();
         public abstract void ExitState();
         public abstract void UpdateState();
+        public abstract void FixedUpdateState();
         public abstract EState GetNextState();
         //public abstract void OnTriggerEnter2D(Collider2D collision);
         //public abstract void OnTriggerStay2D(Collider2D collision);

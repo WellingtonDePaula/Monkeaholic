@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+public class ProjectileController : MonoBehaviour {
+    [SerializeField] private Rigidbody2D body;
+    private float damage;
+    public void Launch(float force, Vector3 direction, float damage) {
+        this.damage = damage;
+        body.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+        Debug.Log("Throwed");
     }
 }

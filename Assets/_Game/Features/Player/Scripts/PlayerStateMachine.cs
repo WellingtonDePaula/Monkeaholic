@@ -15,11 +15,27 @@ namespace Features.Player {
         public Rigidbody2D Body { get; private set; }
         public MonkeyClassData Data;
         [HideInInspector] public NetworkVariable<Vector2> InputDirection;
+        [HideInInspector] public NetworkVariable<Vector3> AimDirection;
 
         public enum PlayerState {
+            #region Basic States
+
             Idle,
             Moving,
+            Jumping,
+            Falling,
             OnInventory,
+
+            #endregion
+
+            #region Holding Item
+
+            IdleHoldingItem,
+            MovingHoldingItem,
+
+            #endregion
+
+            UseItem,
             //Jumping,
             //Falling,
         }
@@ -33,6 +49,11 @@ namespace Features.Player {
             States.Add(PlayerState.Idle, new PlayerStateIdle(this));
             States.Add(PlayerState.Moving, new PlayerStateMoving(this));
             States.Add(PlayerState.OnInventory, new PlayerStateOnInventory(this));
+
+            States.Add(PlayerState.IdleHoldingItem, new PlayerStateIdleHoldingItem(this));
+            States.Add(PlayerState.MovingHoldingItem, new PlayerStateMovingHoldingItem(this));
+
+            States.Add(PlayerState.UseItem, new PlayerStateUseItem(this));
 
             CurrentState = States[PlayerState.Idle];
 
@@ -50,6 +71,20 @@ namespace Features.Player {
 
         protected override void Update() {
             base.Update();
+            Debug.Log(CurrentState.StateKey.ToString());
+        }
+
+        protected override void FixedUpdate() {
+            base.FixedUpdate();
+        }
+
+        public GameObject SpawnItem(GameObject prefab) {
+            GameObject itemInstance = Instantiate(prefab, transform.position, Quaternion.identity);
+            NetworkObject netObj = itemInstance.GetComponent<NetworkObject>();
+            if (netObj != null) {
+                netObj.Spawn(true);
+            }
+            return itemInstance;
         }
     }
 }

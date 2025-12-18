@@ -11,11 +11,11 @@ public abstract class NetworkStateManager<Estate> : NetworkBehaviour where Estat
     protected bool IsTransitioningState = false;
     private void Awake() { }
     private void Start() {
-        if (!IsOwner) { return; }
+        //if (!IsOwner) { return; }
         CurrentState.EnterState();
     }
     protected virtual void Update() {
-        if(!IsOwner) { return; }
+        //if(!IsOwner) { return; }
         Estate nextStateKey = CurrentState.GetNextState();
 
         if (!IsTransitioningState && nextStateKey.Equals(CurrentState.StateKey)) {
@@ -25,7 +25,13 @@ public abstract class NetworkStateManager<Estate> : NetworkBehaviour where Estat
         }
     }
 
+    protected virtual void FixedUpdate() {
+        //if (!IsOwner) { return; }
+        CurrentState.FixedUpdateState();
+    }
+
     protected void TransitionToState(Estate stateKey) {
+        //if(!IsOwner) { return; }
         IsTransitioningState = true;
         CurrentState.ExitState();
 

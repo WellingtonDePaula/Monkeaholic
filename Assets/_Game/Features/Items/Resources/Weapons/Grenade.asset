@@ -15,8 +15,10 @@ MonoBehaviour:
   id: wpn_grenade
   displayName: Grenade
   icon: {fileID: -1791783992758969951, guid: 861f101a421275645954261604359bf5, type: 3}
+  ItemPrefab: {fileID: 4914027452657359265, guid: 9e521daf158f47140be94dca396531f8, type: 3}
   description: A simple grenade, what can i say about it?
-  damage: 10
-  explosionRadius: 3
+  Damage: 10
+  ExplosionRadius: 3
+  MaxForce: 3
+  IsMelee: 0
   projectilePrefab: {fileID: 6571194370350541345, guid: 8b46804284c475f4a8444ae39a43c8fe, type: 3}
-  isMelee: 0
