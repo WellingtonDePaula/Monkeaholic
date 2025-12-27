@@ -56,6 +56,7 @@ namespace Features.Player {
 
         private void Awake() {
             InputDirection = new NetworkVariable<Vector2>(Vector2.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+            AimDirection = new NetworkVariable<Vector2>(Vector2.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         }
 
         protected override void Update() {
