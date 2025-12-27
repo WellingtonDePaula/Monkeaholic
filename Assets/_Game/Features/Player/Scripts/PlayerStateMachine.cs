@@ -1,11 +1,10 @@
 using Core.ScriptableObjects;
-using Core.StateMachine;
 using Features.Inventory;
-using System;
+using Features.Items.Data;
+using Features.Items.Usables;
+using Managers;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 namespace Features.Player {
     public class PlayerStateMachine : NetworkStateManager<PlayerStateMachine.PlayerState> {
@@ -14,8 +13,10 @@ namespace Features.Player {
         public InventoryController Inventory { get; private set; }
         public Rigidbody2D Body { get; private set; }
         public MonkeyClassData Data;
+
+        public IUsableItem CurrentEquipedItem;
         [HideInInspector] public NetworkVariable<Vector2> InputDirection;
-        [HideInInspector] public NetworkVariable<Vector3> AimDirection;
+        [HideInInspector] public NetworkVariable<Vector2> AimDirection;
 
         public enum PlayerState {
             #region Basic States
@@ -25,19 +26,9 @@ namespace Features.Player {
             Jumping,
             Falling,
             OnInventory,
+            Aiming,
 
             #endregion
-
-            #region Holding Item
-
-            IdleHoldingItem,
-            MovingHoldingItem,
-
-            #endregion
-
-            UseItem,
-            //Jumping,
-            //Falling,
         }
 
         public override void OnNetworkSpawn() {
@@ -45,15 +36,13 @@ namespace Features.Player {
             Controller = new PlayerController();
             Inventory = new InventoryController();
 
+            Inventory.OnItemSelected += EquipItem;
+
             Body = gameObject.GetComponent<Rigidbody2D>();
             States.Add(PlayerState.Idle, new PlayerStateIdle(this));
             States.Add(PlayerState.Moving, new PlayerStateMoving(this));
             States.Add(PlayerState.OnInventory, new PlayerStateOnInventory(this));
-
-            States.Add(PlayerState.IdleHoldingItem, new PlayerStateIdleHoldingItem(this));
-            States.Add(PlayerState.MovingHoldingItem, new PlayerStateMovingHoldingItem(this));
-
-            States.Add(PlayerState.UseItem, new PlayerStateUseItem(this));
+            States.Add(PlayerState.Aiming, new PlayerStateAiming(this));
 
             CurrentState = States[PlayerState.Idle];
 
@@ -71,20 +60,41 @@ namespace Features.Player {
 
         protected override void Update() {
             base.Update();
-            Debug.Log(CurrentState.StateKey.ToString());
         }
 
         protected override void FixedUpdate() {
             base.FixedUpdate();
         }
 
-        public GameObject SpawnItem(GameObject prefab) {
-            GameObject itemInstance = Instantiate(prefab, transform.position, Quaternion.identity);
-            NetworkObject netObj = itemInstance.GetComponent<NetworkObject>();
-            if (netObj != null) {
-                netObj.Spawn(true);
+        private void EquipItem(InventorySlot slot) {
+            CurrentEquipedItem?.OnUnequip();
+            CurrentEquipedItem = null;
+
+            if (slot == null) { return; }
+
+            if (slot.Item is WeaponData weaponData) {
+                CurrentEquipedItem = new ProjectileWeapon(weaponData);
             }
-            return itemInstance;
+
+            CurrentEquipedItem?.OnEquip(this);
+        }
+
+        [ServerRpc]
+        public void RequestFireServerRpc(float force, Vector3 direction, string itemId) {
+            // 1. Validar se o player tem o item (anti-cheat)
+            // 2. Spawnar o projétil real
+
+            var itemData = ItemsAssetManager.Instance.GetItemById(itemId);
+            if(itemData is WeaponData weaponData) {
+                Vector2 pos = ( (Vector2) transform.position ) + (AimDirection.Value.normalized * 1.0f);
+
+
+                GameObject proj = Instantiate(weaponData.prefab, pos, Quaternion.identity);
+                proj.GetComponent<NetworkObject>().Spawn();
+                proj.GetComponent<ProjectileController>().Launch(force, direction, weaponData.Damage);
+                return;
+            }
+            Debug.Log("That is not a Weapon");
         }
     }
 }

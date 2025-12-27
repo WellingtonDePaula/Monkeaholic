@@ -21,7 +21,7 @@ namespace Features.Player {
 
         public override PlayerStateMachine.PlayerState GetNextState() {
             if(ctx.Controller.InventoryAction.triggered) {
-                return (ctx.Inventory.SelectedSlot != null) ? PlayerStateMachine.PlayerState.IdleHoldingItem : PlayerStateMachine.PlayerState.Idle;
+                return PlayerStateMachine.PlayerState.Idle;
             }
             return PlayerStateMachine.PlayerState.OnInventory;
         }

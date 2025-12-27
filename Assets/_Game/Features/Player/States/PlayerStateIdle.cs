@@ -27,6 +27,10 @@ namespace Features.Player {
                 if (ctx.Controller.InventoryAction.triggered) {
                     return PlayerStateMachine.PlayerState.OnInventory;
                 }
+
+                if (ctx.Controller.GetUseItemPressed()) {
+                    return PlayerStateMachine.PlayerState.Aiming;
+                }
             }
             return PlayerStateMachine.PlayerState.Idle;
         }

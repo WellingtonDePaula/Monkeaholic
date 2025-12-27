@@ -70,7 +70,6 @@ namespace Features.Inventory {
 
         private void HighlightSelectedSlot(InventorySlot selected) {
             for (int i = 0; i < cachedInventory.slots.Count; i++) {
-                // Se o index do dado for igual ao selecionado, ativa o visual
                 spawnedSlots[i].SetSelected(cachedInventory.slots[i] == selected);
             }
         }

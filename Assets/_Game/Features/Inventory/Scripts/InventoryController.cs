@@ -48,7 +48,6 @@ namespace Features.Inventory {
 
         public void UseSelectedItem() {
             if (SelectedSlot != null) {
-                SelectedSlot = null;
                 SelectedSlot.RemoveQuantity(1);
                 OnInventoryChanged?.Invoke();
             }

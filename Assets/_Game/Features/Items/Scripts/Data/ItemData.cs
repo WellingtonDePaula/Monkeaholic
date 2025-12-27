@@ -9,7 +9,6 @@ namespace Features.Items.Data {
         public string id;
         public string displayName;
         public Sprite icon;
-        public GameObject ItemPrefab;
         [TextArea] public string description;
     }
 }

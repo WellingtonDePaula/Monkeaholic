@@ -16,5 +16,9 @@ namespace Managers {
                 Instance = this;
             }
         }
+
+        public ItemData GetItemById(string itemId) {
+            return ItemsList.items.Find(item => item.id == itemId);
+        }
     }
 }

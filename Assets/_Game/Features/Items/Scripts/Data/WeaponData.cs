@@ -12,6 +12,6 @@ namespace Features.Items.Data {
         public float ExplosionRadius = 3f;
         public float MaxForce = 5f;
         public bool IsMelee = false;
-        public GameObject projectilePrefab;
+        public GameObject prefab;
     }
 }
