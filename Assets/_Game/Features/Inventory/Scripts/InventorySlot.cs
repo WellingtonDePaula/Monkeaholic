@@ -20,6 +20,7 @@ namespace Features.Inventory {
         }
 
         public void RemoveQuantity(int amount) {
+            if(Item.InfinityUse) { return; }
             Quantity -= amount;
             if (Quantity < 0)
                 Quantity = 0;

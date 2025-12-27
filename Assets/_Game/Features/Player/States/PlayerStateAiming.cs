@@ -12,6 +12,7 @@ namespace Features.Player {
         public override void EnterState() {
             if (!ctx.IsOwner) { return; }
             ctx.CurrentEquipedItem?.OnStartUse();
+            Debug.Log("Aiming");
         }
 
         public override void ExitState() {

@@ -37,7 +37,7 @@ namespace Features.Inventory {
             }
 
             iconImage.enabled = true;
-            iconImage.sprite = slot.Item.icon;
+            iconImage.sprite = slot.Item.Icon;
 
             quantityText.text = slot.Quantity.ToString();
         }

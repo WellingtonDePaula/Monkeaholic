@@ -1,5 +1,6 @@
 using UnityEngine;
 using Core.StateMachine;
+using Features.Inventory;
 
 namespace Features.Player {
     public class PlayerStateIdle : BaseState<PlayerStateMachine.PlayerState> {
@@ -29,7 +30,9 @@ namespace Features.Player {
                 }
 
                 if (ctx.Controller.GetUseItemPressed()) {
-                    return PlayerStateMachine.PlayerState.Aiming;
+                    if (ctx.Inventory.GetCanUseItem()) {
+                        return PlayerStateMachine.PlayerState.Aiming;
+                    }
                 }
             }
             return PlayerStateMachine.PlayerState.Idle;

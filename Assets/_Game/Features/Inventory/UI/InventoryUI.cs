@@ -25,7 +25,7 @@ namespace Features.Inventory {
             } else {
                 Instance = this;
             }
-            if(contentPanel != null) {
+            if (contentPanel != null) {
                 contentPanel.SetActive(false);
             }
         }
@@ -53,9 +53,11 @@ namespace Features.Inventory {
                 newUI.AddClickAction(() => cachedInventory.SelectItem(dataSlot.SlotIndex));
 
                 spawnedSlots[dataSlot.SlotIndex] = newUI;
+                if (cachedInventory.SelectedSlot == dataSlot) {
+                    newUI.SetSelected(true);
+                }
+                cachedInventory.OnItemSelected += HighlightSelectedSlot;
             }
-
-            cachedInventory.OnItemSelected += HighlightSelectedSlot;
         }
 
         private void ClearSlotsUI() {

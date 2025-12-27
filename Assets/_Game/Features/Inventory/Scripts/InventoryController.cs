@@ -31,7 +31,7 @@ namespace Features.Inventory {
         }
 
         public void AddItemQuantity(string itemId, int amount) {
-            var slot = slots.Find(slot => slot.Item.id == itemId);
+            var slot = slots.Find(slot => slot.Item.Id == itemId);
             if (slot != null) {
                 slot.AddQuantity(amount);
 
@@ -51,6 +51,11 @@ namespace Features.Inventory {
                 SelectedSlot.RemoveQuantity(1);
                 OnInventoryChanged?.Invoke();
             }
+        }
+
+        public bool GetCanUseItem() {
+            if(SelectedSlot == null) {return false; }
+            return SelectedSlot.Quantity > 0 || SelectedSlot.Item.InfinityUse;
         }
     }
 }

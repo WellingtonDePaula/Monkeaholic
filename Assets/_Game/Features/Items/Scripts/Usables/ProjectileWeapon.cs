@@ -13,14 +13,14 @@ namespace Features.Items.Usables {
             this.data = data;
         }
         public void OnEndUse() {
-            ctx.RequestFireServerRpc(currentCharge, ctx.AimDirection.Value, data.id);
+            ctx.RequestFireServerRpc(currentCharge, ctx.AimDirection.Value, data.Id);
             currentCharge = 0f;
             ctx.Inventory.UseSelectedItem();
         }
 
         public void OnEquip(PlayerStateMachine player) {
             ctx = player;
-            Debug.Log($"Equipped weapon: {data.displayName}");
+            Debug.Log($"Equipped weapon: {data.DisplayName}");
             // Fazer o visual do item equipado aparecer na mão do player
         }
 

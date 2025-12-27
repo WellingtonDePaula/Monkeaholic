@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52487cc71bcf31548bf60784a0a595ef, type: 3}
-  m_Name: Grenade
+  m_Name: Dagger
   m_EditorClassIdentifier: Assembly-CSharp::Features.Items.WeaponData
-  Id: wpn_grenade
-  DisplayName: Grenade
-  Icon: {fileID: -1791783992758969951, guid: 861f101a421275645954261604359bf5, type: 3}
-  description: A simple grenade, what can i say about it?
-  InfinityUse: 1
+  Id: wpn_dagger
+  DisplayName: Dagger
+  Icon: {fileID: 1872732258777413398, guid: 1dfe569d329da2e43bb1d9fe298c9c49, type: 3}
+  description: A throwing dagger
+  InfinityUse: 0
   Damage: 10
-  ExplosionRadius: 3
+  ExplosionRadius: 0
   MaxForce: 3
   IsMelee: 0
-  prefab: {fileID: 6571194370350541345, guid: 8b46804284c475f4a8444ae39a43c8fe, type: 3}
+  prefab: {fileID: 6571194370350541345, guid: 201ed23e731c3fe478859bacbd6ce5fb, type: 3}
