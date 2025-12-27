@@ -34,7 +34,7 @@ namespace Features.Items.Usables {
 
         public void OnUpdateUse() {
             // Implementar carregamento do disparo e atualizar UI de carregamento
-            currentCharge = Math.Clamp(currentCharge + Time.deltaTime, 0, data.MaxForce);
+            currentCharge = Math.Clamp(currentCharge + (Time.deltaTime * data.MaxForce), 0, data.MaxForce);
 
         }
     }
