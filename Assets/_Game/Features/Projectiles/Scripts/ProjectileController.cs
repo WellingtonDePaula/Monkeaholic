@@ -1,11 +1,15 @@
+using Features.Items.Data;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour {
     [SerializeField] private Rigidbody2D body;
-    private float damage;
-    public void Launch(float force, Vector3 direction, float damage) {
-        this.damage = damage;
+    public WeaponData WeaponData { get; private set; }
+    public void Launch(float force, Vector3 direction, WeaponData data) {
+        WeaponData = data;
         body.AddForce(direction.normalized * force, ForceMode2D.Impulse);
-        Debug.Log("Throwed");
+
+        if (TryGetComponent<ExplosionHandler>(out var explosionHandler)) {
+            explosionHandler.Setup(this);
+        }
     }
 }

@@ -17,8 +17,11 @@ MonoBehaviour:
   Icon: {fileID: -1791783992758969951, guid: 861f101a421275645954261604359bf5, type: 3}
   description: A simple grenade, what can i say about it?
   InfinityUse: 1
-  Damage: 10
-  ExplosionRadius: 3
+  Damage: 0
   MaxForce: 3
   IsMelee: 0
   prefab: {fileID: 6571194370350541345, guid: 8b46804284c475f4a8444ae39a43c8fe, type: 3}
+  DelayOnThrow: 0
+  ExplosionRadius: 1
+  ExplosionDamage: 10
+  ExplosionDelay: 2

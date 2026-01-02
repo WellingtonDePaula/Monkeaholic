@@ -3,6 +3,7 @@ using Features.Inventory;
 using Features.Items.Data;
 using Features.Items.Usables;
 using Managers;
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Features.Player {
         public InventoryController Inventory { get; private set; }
         public Rigidbody2D Body { get; private set; }
         public MonkeyClassData Data;
+        public PlayerStats Stats;
 
         public IUsableItem CurrentEquipedItem;
         [HideInInspector] public NetworkVariable<Vector2> InputDirection;
@@ -39,6 +41,9 @@ namespace Features.Player {
             Inventory.OnItemSelected += EquipItem;
 
             Body = gameObject.GetComponent<Rigidbody2D>();
+
+            Stats = new PlayerStats(this);
+
             States.Add(PlayerState.Idle, new PlayerStateIdle(this));
             States.Add(PlayerState.Moving, new PlayerStateMoving(this));
             States.Add(PlayerState.OnInventory, new PlayerStateOnInventory(this));
@@ -61,6 +66,9 @@ namespace Features.Player {
 
         protected override void Update() {
             base.Update();
+            if (IsOwner) {
+                Debug.Log(Stats.Health);
+            }
         }
 
         protected override void FixedUpdate() {
@@ -92,10 +100,14 @@ namespace Features.Player {
 
                 GameObject proj = Instantiate(weaponData.prefab, pos, Quaternion.identity);
                 proj.GetComponent<NetworkObject>().Spawn();
-                proj.GetComponent<ProjectileController>().Launch(force, direction, weaponData.Damage);
+                proj.GetComponent<ProjectileController>().Launch(force, direction, weaponData);
                 return;
             }
             Debug.Log("That is not a Weapon");
+        }
+
+        public void Die() {
+            Destroy(gameObject);
         }
     }
 }

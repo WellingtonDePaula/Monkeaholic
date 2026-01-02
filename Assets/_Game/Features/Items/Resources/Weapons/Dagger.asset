@@ -18,7 +18,10 @@ MonoBehaviour:
   description: A throwing dagger
   InfinityUse: 0
   Damage: 10
-  ExplosionRadius: 0
   MaxForce: 3
   IsMelee: 0
   prefab: {fileID: 6571194370350541345, guid: 201ed23e731c3fe478859bacbd6ce5fb, type: 3}
+  DelayOnThrow: 0
+  ExplosionRadius: 0
+  ExplosionDamage: 0
+  ExplosionDelay: 0

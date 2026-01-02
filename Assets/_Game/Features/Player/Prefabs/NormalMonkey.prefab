@@ -138,6 +138,8 @@ MonoBehaviour:
   Data: {fileID: 11400000, guid: 65347c115b0100e4bbdd577d39fdd52e, type: 2}
   InputDirection:
     m_InternalValue: {x: 0, y: 0}
+  AimDirection:
+    m_InternalValue: {x: 0, y: 0}
 --- !u!114 &1384293074101513237
 MonoBehaviour:
   m_ObjectHideFlags: 0
