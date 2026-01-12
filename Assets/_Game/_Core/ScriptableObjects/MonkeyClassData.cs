@@ -14,7 +14,7 @@ namespace Core.ScriptableObjects {
 
         [Header("Resistances")]
         [Range(0f, 1f)]
-        public float knockbackResistance = 0.5f; // 0 = voa longe, 1 = imóvel
+        public float knockbackResistance = 0.5f;
 
         public enum MonkeyClass {
             Normal,

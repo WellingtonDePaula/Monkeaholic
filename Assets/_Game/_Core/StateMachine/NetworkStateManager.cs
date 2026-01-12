@@ -30,7 +30,7 @@ public abstract class NetworkStateManager<Estate> : NetworkBehaviour where Estat
         CurrentState.FixedUpdateState();
     }
 
-    protected void TransitionToState(Estate stateKey) {
+    private void TransitionToState(Estate stateKey) {
         if(!IsOwner) { return; }
         IsTransitioningState = true;
         CurrentState.ExitState();

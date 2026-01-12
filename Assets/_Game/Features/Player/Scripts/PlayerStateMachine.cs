@@ -66,9 +66,6 @@ namespace Features.Player {
 
         protected override void Update() {
             base.Update();
-            if (IsOwner) {
-                Debug.Log(Stats.Health);
-            }
         }
 
         protected override void FixedUpdate() {
@@ -90,9 +87,6 @@ namespace Features.Player {
 
         [ServerRpc]
         public void RequestFireServerRpc(float force, Vector3 direction, string itemId) {
-            // 1. Validar se o player tem o item (anti-cheat)
-            // 2. Spawnar o projétil real
-
             var itemData = ItemsAssetManager.Instance.GetItemById(itemId);
             if(itemData is WeaponData weaponData) {
                 Vector2 pos = ( (Vector2) transform.position ) + (AimDirection.Value.normalized * 1.0f);

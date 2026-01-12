@@ -13,7 +13,7 @@ namespace Core.StateMachine {
         private void Start() {
             CurrentState.EnterState();
         }
-        private void Update() {
+        protected virtual void Update() {
             Estate nextStateKey = CurrentState.GetNextState();
 
             if (!IsTransitioningState && nextStateKey.Equals(CurrentState.StateKey)) {
@@ -23,7 +23,7 @@ namespace Core.StateMachine {
             }
         }
 
-        private void FixedUpdate() {
+        protected virtual void FixedUpdate() {
             CurrentState.FixedUpdateState();
         }
 
